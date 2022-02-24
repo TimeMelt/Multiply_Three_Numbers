@@ -1,0 +1,47 @@
+/ Jean-Paul Stevens (TimeMelt)
+/ Z = (A * B * C)
+
+ORG 100  / set assembler location counter
+
+/ grab and store input from user keyboard entry
+INPUT
+STORE a            / store input in variable a
+OUTPUT
+INPUT
+STORE b            / store input in variable b
+OUTPUT
+INPUT
+STORE c            / store input in variable c
+OUTPUT
+
+/ Loop for a * b
+Loop1, LOAD result / begin Loop1, and load content of result into AC
+ADD a              / add content of a to AC
+STORE result       / store AC content in result
+Load b             / load content of b into AC 
+SUBT decr          / decrement loop counter
+STORE b            / store AC content in b
+SKIPCOND 400       / skip next instruction if AC = 0
+JUMP Loop1         / jump to beginning of Loop1
+
+/ Loop for (a * b) * c
+Loop2, LOAD z      / begin Loop2, and load content of z into AC
+ADD result         / add result to AC
+STORE z            / store AC content in z
+LOAD c             / load content of c into AC
+SUBT decr          / decrement loop counter
+STORE c            / store AC content in c
+SKIPCOND 400       / skip next instruction if AC = 0
+JUMP Loop2         / jump to beginning of Loop2
+LOAD z             / load content of z into AC
+OUTPUT             / output content of z
+HALT               / End program
+
+/ Define variables and their values
+a, DEC 0
+b, DEC 0
+c, DEC 0
+z, DEC 0
+decr, DEC 1
+result, DEC 0
+END
